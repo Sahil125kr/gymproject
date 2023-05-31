@@ -10,19 +10,19 @@ from datetime import datetime
 
 
  
-app = Flask(__name__)
+application = Flask(__name__)
        
-app.secret_key = "caircocoders-ednalan-2020"
+application.secret_key = "caircocoders-ednalan-2020"
        
-app.config['MYSQL_HOST'] = 'p3nlmysql85plsk.secureserver.net'
-app.config['MYSQL_USER'] = 'gymdbuid'
-app.config['MYSQL_PASSWORD'] = '!Bsg15a8'
-app.config['MYSQL_DB'] = 'gymdb'
-# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-mysql = MySQL(app)
+application.config['MYSQL_HOST'] = 'database-1.cxtgqu4rgeyo.ap-south-1.rds.amazonaws.com'
+application.config['MYSQL_USER'] = 'admin'
+application.config['MYSQL_PASSWORD'] = 'sahilkumar'
+application.config['MYSQL_DB'] = 'flaskaws'
+# application.config['SQL_alc'] = 'DictCursor'
+mysql = MySQL(application)
  
 UPLOAD_FOLDER = 'static/uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
   
 ALLOWED_EXTENSIONS = set(['WMV','AVI','3G2','mp4'])
 ALLOWED_EXTENSIONS1 = set(['png', 'jpg', 'jpeg', 'gif','pdf'])
@@ -37,17 +37,17 @@ def allowed_file1(filename):
 
 
 
-@app.route('/')
+@application.route('/')
 def home():
 	return render_template("index.html")
 
 
 
-@app.route('/about')
+@application.route('/about')
 def about():
 	return render_template("about.html")
 	
-@app.route('/contact')
+@application.route('/contact')
 def contact():
 	return render_template("contact.html")
 
@@ -56,7 +56,7 @@ def contact():
 ##########  Admin Login ###################
 	
 
-@app.route('/login_admin',methods=['GET','POST'])
+@application.route('/login_admin',methods=['GET','POST'])
 def adminlogin():
     msg = ''
     if request.method == 'POST': 
@@ -81,14 +81,14 @@ def adminlogin():
 
 ###########    Admin Dashboard  #######################
 
-@app.route('/abc')
+@application.route('/abc')
 def admin():
     return render_template("UI/admin/admin_index.html")
 
 ##########   Coach Dashboard ###############
 
 
-@app.route('/coachdashboard')
+@application.route('/coachdashboard')
 def coachdashboard():
     return render_template("UI/coach/coach_index.html")
 
@@ -100,7 +100,7 @@ def coachdashboard():
 
 
 
-@app.route("/UI/admin/coach_entry",methods=['GET','POST'])
+@application.route("/UI/admin/coach_entry",methods=['GET','POST'])
 def coach_entry():
     if request.method=='POST':
         name=request.form['name']
@@ -149,7 +149,7 @@ def coach_entry():
 
 
 
-@app.route('/login_coach',methods=['GET','POST'])
+@application.route('/login_coach',methods=['GET','POST'])
 def coachlogin():
     msg = ''
     if request.method == 'POST': 
@@ -176,7 +176,7 @@ def coachlogin():
     
 ##############  student login ##############
 
-@app.route('/login_student',methods=['GET','POST'])
+@application.route('/login_student',methods=['GET','POST'])
 def studentlogin():
     msg = ''
     if request.method == 'POST': 
@@ -203,7 +203,7 @@ def studentlogin():
 ###########   Student Registration Form ##############
 
 
-@app.route('/UI/coach/student_registration',methods=['GET','POST'])
+@application.route('/UI/coach/student_registration',methods=['GET','POST'])
 def student_registration():
     if request.method=='POST':
         coach_id=request.form['coach_id']
@@ -242,7 +242,7 @@ def student_registration():
 ##########################     Exercise Add ##################
 
 
-@app.route('/UI/admin/workout',methods=['GET','POST'])
+@application.route('/UI/admin/workout',methods=['GET','POST'])
 def workout():
     if request.method=='POST':
         workout_id=request.form['workout_id']
@@ -322,7 +322,7 @@ def workout():
                        
 #                 return render_template("UI/coach/capture.html",student_registration=student_registration)
 
-@app.route('/UI/coach/capture_form',methods=['GET','POST'])
+@application.route('/UI/coach/capture_form',methods=['GET','POST'])
 def capture():
    
         if 'loggedin' in session:
@@ -400,7 +400,7 @@ def capture():
 #             return render_template("UI/admin/coach_Entry.html",msg=msg)
         
 #################   Capture Report ################
-@app.route("/UI/coach/analyse_form",methods=['GET','POST'])
+@application.route("/UI/coach/analyse_form",methods=['GET','POST'])
 def analyse_form():
      cur=mysql.connection.cursor()
      cur.execute("SELECT id,coach_id,coach_name,student_id,name,workout,file_name FROM capture_form")
@@ -437,4 +437,4 @@ def analyse_form():
              
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.run(debug=True)
