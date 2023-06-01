@@ -17,7 +17,7 @@ application.secret_key = "caircocoders-ednalan-2020"
 application.config['MYSQL_HOST'] = 'database-1.cxtgqu4rgeyo.ap-south-1.rds.amazonaws.com'
 application.config['MYSQL_USER'] = 'admin'
 application.config['MYSQL_PASSWORD'] = 'sahilkumar'
-application.config['MYSQL_DB'] = 'flaskaws'
+application.config['MYSQL_DB'] = 'FLASKAWS'
 # application.config['SQL_alc'] = 'DictCursor'
 mysql = MySQL(application)
  
